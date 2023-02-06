@@ -13,24 +13,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	//     "github.com/davecgh/go-spew/spew"
-	//     "github.com/gorilla/mux"
-	//     "github.com/joho/godotenv"
 )
-
-// import (
-//     "crypto/sha256"
-//     "encoding/hex"
-//     "encoding/json"
-//     "io"
-//     "log"
-//     "net/http"
-//     "os"
-//     "time"
-//     "github.com/davecgh/go-spew/spew"
-//     "github.com/gorilla/mux"
-//     "github.com/joho/godotenv"
-// )
 
 //블록체인을 구성하기 위한 구조체를 정의
 type Block struct {
@@ -41,7 +24,7 @@ type Block struct {
 	PrevHash string // PrevHash 이전 데이터 레코드의 Hash를 의미합니다.
 } 
 
-var Blockchain []Block // Blockchain 변수명에 배열을 선언?
+var Blockchain []Block // Blockchain 변수 설정
 
 //블록에 대한 SHA256 해시를 생성하는 함수 만들기
 func calculateHash(block Block) string {
@@ -100,7 +83,7 @@ func replaceChain(newBlocks []Block){
 }
 
 //gorilla/mux 패키지를 이용해서 run함수를 통해 웹서버 올리기
-//.env 파일에서  8080포트를 가져옴 
+//.env 파일에서  8888포트를 가져옴 
 func run() error {
 	mux := makeMuxRouter()
 	//mux := mux.NewRouter()
