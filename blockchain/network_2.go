@@ -16,22 +16,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// import (
-//     "bufio"
-//     "crypto/sha256"
-//     "encoding/hex"
-//     "encoding/json"
-//     "io"
-//     "log"
-//     "net"
-//     "os"
-//     "strconv"
-//     "time"
-
-//     "github.com/davecgh/go-spew/spew"
-//     "github.com/joho/godotenv"
-// )
-
 // Block represents each 'item' in the blockchain
 type Block struct {
 	Index     int

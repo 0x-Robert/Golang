@@ -28,7 +28,7 @@ type Block struct {
 	Hash string // Hash 는 SHA256를 이용하며 이 데이타 레코드의 식별을 하는데 사용됩니다.
 	PrevHash string // PrevHash 이전 데이터 레코드의 Hash를 의미합니다.
 	Difficulty int //해시 값 선행에 있는 0의 갯수, 0 갯수가 많이질수록 찾기 힘들어짐 
-	Nonce string  
+	Nonce string  //
 } 
 
 var Blockchain []Block // Blockchain 변수 설정
@@ -37,6 +37,7 @@ type Message struct {
 	BPM int
 }
 
+//동시에 블록이 생성하는 것을 막기 위해 사용
 var mutex = &sync.Mutex{}
 
 //블록에 대한 SHA256 해시를 생성하는 함수 만들기
@@ -67,18 +68,24 @@ func generateBlock(oldBlock Block, BPM int) Block{
 	newBlock.BPM = BPM 	//bpm 속성 설정 
 	newBlock.PrevHash = oldBlock.Hash //올드블록의 해쉬 
 	newBlock.Hash = calculateHash(newBlock) //올드블록의 해쉬 
-	newBlock.Difficulty = difficulty //난이도 대입 
+	newBlock.Difficulty = difficulty //난이도 대입, hash 선행문자에 0의 갯수  
 	//return newBlock, nil //return newBlock, newBlock 값이 없을 때 할당되는 초기값으로 생각됨
 
 	for i := 0; ; i++{
+		//i를 무한 루프로 돌게하면서 i 값을 16진수로 바꾸고 nonce에 대입한다.
+		//그리고 원하는 0의 갯수와 일치할 때까지 계속 해시화를 진행함 
+		// 0의 갯수와 일치할 때까지 계속찾아내는 함수를 Nonce라고 함 
 		hex := fmt.Sprintf("%x", i)
 		newBlock.Nonce = hex 
+		//블록 유효성 검증함수를 조건문에 넣었음
 		if !isHashValid(calculateHash(newBlock), newBlock.Difficulty){
 			fmt.Println(calculateHash(newBlock), "do more work")
+			//계속 작업을 진행할 때 동작하는 코드 
 			time.Sleep(time.Second)
 			continue 
 		}else{
 			fmt.Println(calculateHash(newBlock), " work done ")
+			//작업증명이 끝날경우
 			newBlock.Hash = calculateHash(newBlock)
 			break 
 		}
