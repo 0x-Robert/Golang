@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	mrand "math/rand"
 	"os"
 	"strconv"
 	"strings"
@@ -18,39 +19,14 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/libp2p/go-libp2p/core/crypto"
-	"github.com/libp2p/go-libp2p/core/host"
+	libp2p "github.com/libp2p/go-libp2p"
+	crypto "github.com/libp2p/go-libp2p/core/crypto"
+	host "github.com/libp2p/go-libp2p/core/host"
+	net "github.com/libp2p/go-libp2p/core/network"
+	peer "github.com/libp2p/go-libp2p/core/peer"
+	pstore "github.com/libp2p/go-libp2p/core/peerstore"
+	ma "github.com/multiformats/go-multiaddr"
 )
-
-// import (
-//         "bufio"
-//     "context"
-//     "crypto/rand"
-//     "crypto/sha256"
-//     "encoding/hex"
-//     "encoding/json"
-//     "flag"
-//     "fmt"
-//     "io"
-//     "log"
-//     mrand "math/rand"
-//     "os"
-//     "strconv"
-//     "strings"
-//     "sync"
-//     "time"
-//     "github.com/davecgh/go-spew/spew"
-//     golog "github.com/ipfs/go-log"
-//     libp2p "github.com/libp2p/go-libp2p"
-//     crypto "github.com/libp2p/go-libp2p-crypto"
-//     host "github.com/libp2p/go-libp2p-host"
-//     net "github.com/libp2p/go-libp2p-net"
-//     peer "github.com/libp2p/go-libp2p-peer"
-//     pstore "github.com/libp2p/go-libp2p-peerstore"
-//     ma "github.com/multiformats/go-multiaddr"
-//     gologging "github.com/whyrusleeping/go-logging"
-
-// )
 
 type Block struct {
     Index     int   
@@ -105,16 +81,20 @@ func generateBlock(oldBlock Block, BPM int) Block {
     return newBlock
 }
 
-
+//listenPort는 다른 perr가 접근할 수 있도록 하는 포트
+//secio는 secure input/output의 약자 안전하게 데이터 스트림 사용할지 체크
+//randSeed는 호스트의 임의주소를 생성할지를 결정하는 부가적인 인자 
 func makeBasicHost(listenPort int, secio bool, randseed int64) (host.Host, error) {
 
     // If the seed is zero, use real cryptographic randomness. Otherwise, use a
     // deterministic randomness source to make generated keys stay the same
     // across multiple runs
+	//randseed가 0이면 완벽한 랜덤값이 아님 
     var r io.Reader
     if randseed == 0 {
-        r = rand.Reader
+        r = rand.Reader 
     } else {
+		//randseed 사용하는지 확인하고 호스트 키 생성 
         r = mrand.New(mrand.NewSource(randseed))
     }
     
@@ -128,13 +108,16 @@ func makeBasicHost(listenPort int, secio bool, randseed int64) (host.Host, error
     opts := []libp2p.Option{
         libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", listenPort)),
         libp2p.Identity(priv),
+		libp2p.DisableRelay(),
     }
     
     if !secio {
-        opts = append(opts, libp2p.NoEncryption())
+        //opts = append(opts, libp2p.NoSecurity())
     }
     
-    basicHost, err := libp2p.New(context.Background(), opts...)
+    //basicHost, err := libp2p.New(context.Background(), opts)
+	basicHost, err := libp2p.New(context.Background())
+
     if err != nil {
         return nil, err
     }
@@ -156,7 +139,7 @@ func makeBasicHost(listenPort int, secio bool, randseed int64) (host.Host, error
     return basicHost, nil
 }
 
-
+//다른 노드에서 현재 호스트에 연결 후 블록 생성 후 블록체인에 추가할지 결정하는 코드 
 func handleStream(s net.Stream) {
     
 
@@ -166,7 +149,7 @@ func handleStream(s net.Stream) {
 	// Create a buffer stream for non blocking read and write.
 	rw := bufio.NewReadWriter(bufio.NewReader(s), bufio.NewWriter(s))
 
-
+	//고루틴으로 다음 함수들 실행 
 	go readData(rw)
 	go writeData(rw)
 
@@ -197,7 +180,9 @@ func readData(rw *bufio.ReadWriter) {
 			}
 
 
-			mutex.Lock()
+			mutex.Lock()//동시실행하는 것을 막아주는 mutex 락
+			//채인이 블록체인보다 길면 블록체인 변수에 채인값을 넣는다.
+			//이후 바이트와 err 변수에 블록체인에 MarshalIndent함수를 적용한 값을 저장한다. 
 			if len(chain) > len(Blockchain) {
 				Blockchain = chain
 				bytes, err := json.MarshalIndent(Blockchain, "", "  ")
@@ -210,7 +195,7 @@ func readData(rw *bufio.ReadWriter) {
 				// Reset console color:     \x1b[0m
 				fmt.Printf("\x1b[32m%s\x1b[0m> ", string(bytes))
 			}
-			mutex.Unlock()
+			mutex.Unlock()//동시실행하는 것을 막아주는 mutex 언락
 		}
 	}
 }
@@ -220,18 +205,23 @@ func writeData(rw *bufio.ReadWriter) {
 
 	go func() {
 		for {
+			//5초 슬립
 			time.Sleep(5 * time.Second)
+			//뮤텍스 락, 동시실행 막아줌
 			mutex.Lock()
+			//블록체인 데이터를 json화한 값을 bytes에 저장 
 			bytes, err := json.Marshal(Blockchain)
 			if err != nil {
 				log.Println(err)
 			}
+			//뮤텍스 언락, 동시실행 막아줌
 			mutex.Unlock()
 
-
+			//뮤텍스 락, 동시실행 막아줌
 			mutex.Lock()
 			rw.WriteString(fmt.Sprintf("%s\n", string(bytes)))
 			rw.Flush()
+			//뮤텍스 언락, 동시실행 막아줌
 			mutex.Unlock()
 
 
@@ -296,7 +286,7 @@ func main() {
 	// LibP2P code uses golog to log messages. They log with different
 	// string IDs (i.e. "swarm"). We can control the verbosity level for
 	// all loggers with:
-	golog.SetAllLoggers(gologging.INFO) // Change to DEBUG for extra info
+	//golog.SetAllLoggers(gologging.INFO) // Change to DEBUG for extra info
 
 
 	// Parse options from the command line
@@ -346,16 +336,21 @@ func main() {
 		}
 
 
-		peerid, err := peer.IDB58Decode(pid)
+		// peerid, err := peer.IDB58Decode(pid)
+		// if err != nil {
+		// 	log.Fatalln(err)
+		// }
+
+		peerid, err := peer.Decode(pid)
 		if err != nil {
 			log.Fatalln(err)
 		}
 
-
 		// Decapsulate the /ipfs/<peerID> part from the target
 		// /ip4/<a.b.c.d>/ipfs/<peer> becomes /ip4/<a.b.c.d>
 		targetPeerAddr, _ := ma.NewMultiaddr(
-			fmt.Sprintf("/ipfs/%s", peer.IDB58Encode(peerid)))
+			// fmt.Sprintf("/ipfs/%s", peer.IDB58Encode(peerid)))
+			fmt.Sprintf("/ipfs/%s", peer.Encode(peerid)))
 		targetAddr := ipfsaddr.Decapsulate(targetPeerAddr)
 
 
