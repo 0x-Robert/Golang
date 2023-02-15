@@ -26,6 +26,7 @@ import (
 	peer "github.com/libp2p/go-libp2p/core/peer"
 	pstore "github.com/libp2p/go-libp2p/core/peerstore"
 	ma "github.com/multiformats/go-multiaddr"
+	// golog "github.com/ipfs/go-log/v2"
 )
 
 type Block struct {
@@ -110,22 +111,24 @@ func makeBasicHost(listenPort int, secio bool, randseed int64) (host.Host, error
         libp2p.Identity(priv),
 		libp2p.DisableRelay(),
     }
+
     
-    if !secio {
-        //opts = append(opts, libp2p.NoSecurity())
-    }
-    
-    //basicHost, err := libp2p.New(context.Background(), opts)
+	if !secio {
+		opts = append(opts, libp2p.NoSecurity)
+	}
+
+	return libp2p.New(opts...)
+    // //basicHost, err := libp2p.New(context.Background(), opts)
 	basicHost, err := libp2p.New(context.Background())
 
     if err != nil {
         return nil, err
     }
     
-    // Build host multiaddress
+    //Build host multiaddress
     hostAddr, _ := ma.NewMultiaddr(fmt.Sprintf("/ipfs/%s", basicHost.ID().Pretty()))
     
-    // Now we can build a full multiaddress to reach this host
+    // // Now we can build a full multiaddress to reach this host
     // by encapsulating both addresses:
     addr := basicHost.Addrs()[0]
     fullAddr := addr.Encapsulate(hostAddr)
