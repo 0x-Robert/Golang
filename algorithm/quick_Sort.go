@@ -47,7 +47,7 @@ func quicksort(a []int) []int {
     //right와 pivot 위치 바꾸기 
     a[pivot], a[right] = a[right], a[pivot]
      
-    //a의 길이만큼 반복 
+    //a의 길이만큼 반복  right 인덱스가 i보다 크면  left와 i 원소 위치 교환, 이후 left에 ++를 대입 
     for i, _ := range a {
         if a[i] < a[right] {
             //i요소가 right보다 작으면 

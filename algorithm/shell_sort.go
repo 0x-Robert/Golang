@@ -33,6 +33,7 @@ func generateSlice(size int) []int {
 
 //쉘정렬 
 func shellsort(items []int) {
+	//n은 배열의 크기 설정, gaps 배열 설정 
     var (
         n = len(items)
         gaps = []int{1}
@@ -45,6 +46,7 @@ func shellsort(items []int) {
         if gap > n-1 {
             break
         }
+		
         gaps = append([]int{gap}, gaps...)
         k++
     }
@@ -52,10 +54,13 @@ func shellsort(items []int) {
     for _, gap := range gaps {
         for i := gap; i < n; i += gap {
             j := i
+			//for문 j가 양수일 때 
             for j > 0 {
                 if items[j-gap] > items[j] {
+					//j-gap 인덱스가 j보다 크면 인덱스 위치 변경 
                     items[j-gap], items[j] = items[j], items[j-gap]
                 }
+				//j 값에 j - gap 대입 
                 j = j - gap
             }
         }

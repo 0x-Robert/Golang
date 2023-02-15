@@ -34,7 +34,7 @@ func main(){
 	defer file.Close() //main 함수가 끝나기 직전에 파일을 닫음 
 
 
-	w := bufio.NewWriter(file) //writer인터페이슬르 따르는 file로 쓰기 인스턴스  w 생성
+	w := bufio.NewWriter(file) //writer인터페이스를 따르는 file로 쓰기 인스턴스  w 생성
 	w.WriteString("hello world") //쓰기 인스턴스로 버퍼에 hello, world 쓰기 
 	w.Flush() //버퍼의 내용을 파일에 저장 
 
@@ -46,5 +46,5 @@ func main(){
 	r.Read(b) //읽기 인스턴스로 파일 내용을 읽어서 b에 저장 
 
 	fmt.Println(string(b)) //문자열로 변환하여 b의 내용 출력 
-	
+
 }
