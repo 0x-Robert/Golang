@@ -50,6 +50,7 @@ func mergeSort(items []int) []int {
 
 //병합 함수
 func merge(left, right []int) []int {
+	//result 초기화
 	result := make([]int, 0, len(left)+len(right))
 
 	//left와 right 배열 크기가 0일 때 반복문 종료 

@@ -106,6 +106,7 @@ func makeBasicHost(listenPort int, secio bool, randseed int64) (host.Host, error
         return nil, err
     }
     
+	//
     opts := []libp2p.Option{
         libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", listenPort)),
         libp2p.Identity(priv),
@@ -119,8 +120,12 @@ func makeBasicHost(listenPort int, secio bool, randseed int64) (host.Host, error
 
 	return libp2p.New(opts...)
     // //basicHost, err := libp2p.New(context.Background(), opts)
-	basicHost, err := libp2p.New(context.Background())
+	//basicHost, err := libp2p.New(context.Background())
+	//basicHost, err := libp2p.New(context.Background(), libp2p.ListenAddrStrings(fmt.Sprintf("/ip4/127.0.0.1/tcp/%d", listenPort)), libp2p.Identity(priv), libp2p.DisableRelay())
 
+//	basicHost, err := libp2p.New(context.Background(), libp2p.ListenAddrStrings("/ip4/0.0.0.0/tcp/9000"))
+
+	basicHost, err := libp2p.New(opts...)
     if err != nil {
         return nil, err
     }
