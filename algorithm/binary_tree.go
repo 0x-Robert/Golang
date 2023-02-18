@@ -6,20 +6,23 @@ import (
 	"os"
 )
 
-//바이너리 노드 구조체
-type BinaryNode struct {
-    left  *BinaryNode
-    right *BinaryNode
-    data  int64
-}
- 
 //바이너리 트리 구조체 
 type BinaryTree struct {
-    root *BinaryNode
+    root *BinaryNode //이진트리의 루트노드를 필드로 가짐 
+}
+
+//바이너리 노드 구조체
+type BinaryNode struct {
+    left  *BinaryNode //왼쪽 자식 노드 
+    right *BinaryNode //오른쪽 자식 노드 
+    data  int64 //노드에 저장할 데이터 
 }
  
+ 
+//포인터 트리 구조체를 인자로 받는다
+//BinaryTree 구조체에 insert 메서드를 정의한다.
 func (t *BinaryTree) insert(data int64) *BinaryTree {
-    if t.root == nil {
+    if t.root == nil { 
         t.root = &BinaryNode{data: data, left: nil, right: nil}
     } else {
         t.root.insert(data)
@@ -27,6 +30,8 @@ func (t *BinaryTree) insert(data int64) *BinaryTree {
     return t
 }
  
+//포인터 바이너리노드를 인자로 받는다. 
+//바이너리 노드 구조체에도 insert 메서드를 정의한다. 
 func (n *BinaryNode) insert(data int64) {
     if n == nil {
         return
@@ -44,7 +49,8 @@ func (n *BinaryNode) insert(data int64) {
         }
     }   
 }
- 
+//입력받은 노드를 루트로 하는 이진트리를 출력한다. 
+
 func print(w io.Writer, node *BinaryNode, ns int, ch rune) {
     if node == nil {
         return
