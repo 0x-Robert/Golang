@@ -42,6 +42,7 @@ func shellsort(items []int) {
     )
      
     for {
+        //k를 이용해서 간격 배열 계산 
         gap := element(2, k) + 1
         if gap > n-1 {
             break
