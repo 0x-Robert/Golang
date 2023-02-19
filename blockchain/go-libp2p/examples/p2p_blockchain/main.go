@@ -1,13 +1,13 @@
 package main
 
 import (
-	"bufio"
-	"context"
-	"crypto/rand"
-	"crypto/sha256"
-	"encoding/hex"
-	"encoding/json"
-	"flag"
+	"bufio"         //버퍼 인풋 아웃풋 패키지
+	"context"       //컨텍스트 관련 패키지, 고루틴을 관리하거나 네트워크의 취소등의 작업을 할 때 필요함
+	"crypto/rand"   //암호학 난수 생성 패키지?
+	"crypto/sha256" //sha256 패키지
+	"encoding/hex"  //hex encoding
+	"encoding/json" //json encoding 패키지
+	"flag"          //flag
 	"fmt"
 	"io"
 	"log"
@@ -21,12 +21,6 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	libp2p "github.com/libp2p/go-libp2p"
 	crypto "github.com/libp2p/go-libp2p/core/crypto"
-
-	// host "github.com/libp2p/go-libp2p-host"
-	// net "github.com/libp2p/go-libp2p-net"
-	// peer "github.com/libp2p/go-libp2p-peer"
-	// pstore "github.com/libp2p/go-libp2p-peerstore"
-	golog "github.com/ipfs/go-log"
 	host "github.com/libp2p/go-libp2p/core/host"
 	net "github.com/libp2p/go-libp2p/core/network"
 	peer "github.com/libp2p/go-libp2p/core/peer"
@@ -257,7 +251,7 @@ func main() {
 	// LibP2P code uses golog to log messages. They log with different
 	// string IDs (i.e. "swarm"). We can control the verbosity level for
 	// all loggers with:
-	golog.SetAllLoggers(golog.INFO) // Change to DEBUG for extra info
+	//golog.SetAllLoggers(gologging.INFO) // Change to DEBUG for extra info
 
 	// Parse options from the command line
 	listenF := flag.Int("l", 0, "wait for incoming connections")

@@ -1,31 +1,31 @@
 package main
 
 import (
-	"bufio"         //버퍼 인풋 아웃풋 패키지
-	"context"       //컨텍스트 관련 패키지, 고루틴을 관리하거나 네트워크의 취소등의 작업을 할 때 필요함
-	"crypto/rand"   //암호학 난수 생성 패키지?
-	"crypto/sha256" //sha256 패키지
-	"encoding/hex"  //hex encoding
-	"encoding/json" //json encoding 패키지
-	"flag"          //flag
-	"fmt"
-	"io"
-	"log"
-	mrand "math/rand"
-	"os"
-	"strconv"
-	"strings"
-	"sync"
-	"time"
+	"bufio"           //버퍼 인풋 아웃풋 패키지
+	"context"         //컨텍스트 관련 패키지, 고루틴을 관리하거나 네트워크의 취소등의 작업을 할 때 필요함
+	"crypto/rand"     //암호학 난수 생성 패키지?
+	"crypto/sha256"   //sha256 패키지
+	"encoding/hex"    //hex encoding
+	"encoding/json"   //json encoding 패키지
+	"flag"            //flag 명령 인자 읽는 커맨드
+	"fmt"             //프린트 패키지
+	"io"              //인풋,아웃풋 패키지
+	"log"             //로그 패키지
+	mrand "math/rand" //난수 생성 패키지
+	"os"              //OS 패키지
+	"strconv"         //문자열 관련 패키지
+	"strings"         //문자열 관련 패키지
+	"sync"            //sync 패키지
+	"time"            //시간 패키지
 
-	"github.com/davecgh/go-spew/spew"
-	libp2p "github.com/libp2p/go-libp2p"
-	crypto "github.com/libp2p/go-libp2p/core/crypto"
-	host "github.com/libp2p/go-libp2p/core/host"
-	net "github.com/libp2p/go-libp2p/core/network"
-	peer "github.com/libp2p/go-libp2p/core/peer"
-	pstore "github.com/libp2p/go-libp2p/core/peerstore"
-	ma "github.com/multiformats/go-multiaddr"
+	"github.com/davecgh/go-spew/spew"                   //디버그 패키지
+	libp2p "github.com/libp2p/go-libp2p"                // p2p
+	crypto "github.com/libp2p/go-libp2p/core/crypto"    // crypto 암호학 패키지
+	host "github.com/libp2p/go-libp2p/core/host"        // 호스트 네트워크 패키지
+	net "github.com/libp2p/go-libp2p/core/network"      // 네트워크 패키지
+	peer "github.com/libp2p/go-libp2p/core/peer"        //peer 연결관련된 패키지
+	pstore "github.com/libp2p/go-libp2p/core/peerstore" //peerstore 패키지
+	ma "github.com/multiformats/go-multiaddr"           //다중 주소 관련 패키지
 )
 
 // Block represents each 'item' in the blockchain
@@ -128,9 +128,9 @@ func makeBasicHost(listenPort int, secio bool, randseed int64) (host.Host, error
 	fullAddr := addr.Encapsulate(hostAddr)
 	log.Printf("I am %s\n", fullAddr)
 	if secio {
-		log.Printf("Now run \"go run main.go -l %d -d %s -secio\" on a different terminal\n", listenPort+1, fullAddr)
+		log.Printf("Now run \"go run p2p_5.go -l %d -d %s -secio\" on a different terminal\n", listenPort+1, fullAddr)
 	} else {
-		log.Printf("Now run \"go run main.go -l %d -d %s\" on a different terminal\n", listenPort+1, fullAddr)
+		log.Printf("Now run \"go run p2p_5.go -l %d -d %s\" on a different terminal\n", listenPort+1, fullAddr)
 	}
 
 	return basicHost, nil
