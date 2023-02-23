@@ -19,7 +19,7 @@ func main() {
 	show := func(name string, v1, v2, v3 any) {
 		fmt.Fprintf(w, "%s\t%v\t%v\t%v\n", name, v1, v2, v3)
 	}
-
+	
 	// Float32 and Float64 values are in [0, 1).
 	show("Float32", r.Float32(), r.Float32(), r.Float32())
 	show("Float64", r.Float64(), r.Float64(), r.Float64())

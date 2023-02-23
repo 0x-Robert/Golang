@@ -1,6 +1,7 @@
 # p2p chat app with libp2p [support peer discovery using mdns]
 
-This program demonstrates a simple p2p chat application. You will learn how to discover a peer in the network (using mdns), connect to it and open a chat stream. This example is heavily influenced by (and shamelessly copied from) `chat-with-rendezvous` example
+This program demonstrates a simple p2p chat application. You will learn how to discover a peer in the network (using mdns),
+ connect to it and open a chat stream. This example is heavily influenced by (and shamelessly copied from) `chat-with-rendezvous` example
 
 ## How to build this example?
 
