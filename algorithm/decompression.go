@@ -5,7 +5,6 @@ import "fmt"
 func decompression(image [][]int) string {
 	//재귀함수
 	// rs=row start / re=row end / cs=col start / ce=col end
-
 	var aux func(int, int, int, int, [][]int) string
 	aux = func(rs, re, cs, ce int, image [][]int) string {
 		//base case
