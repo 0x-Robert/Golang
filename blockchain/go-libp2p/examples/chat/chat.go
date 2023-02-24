@@ -94,7 +94,7 @@ func writeData(rw *bufio.ReadWriter) {
 			return
 		}
 
-		//쓰기함수를 통해 sendData를 보냄?
+		//쓰기함수를 통해 sendData를 보냄
 		rw.WriteString(fmt.Sprintf("%s\n", sendData))
 		rw.Flush()
 	}
