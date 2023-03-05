@@ -8,9 +8,11 @@ type User struct {
 }
 
 func NewUser(name string, age int) *User {
-	var u = User(name, age)
-	//이미 사라진 주소를 반환하면 에러가 나온다.
-	return &u
+	// var u = User(name, age)
+	// //이미 사라진 주소를 반환하면 에러가 나온다.
+	// return &u
+
+	return &User{name, age}
 }
 
 func main() {
