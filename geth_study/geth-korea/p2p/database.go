@@ -55,7 +55,7 @@ type nodeDB struct {
 	lvl    *leveldb.DB   // Interface to the database itself
 	// db 자체 인터페이스
 	self   NodeID        // Own node id to prevent adding it into the database
-	// DB에 추가하는 것을 박기위한 자기의 node ID
+	// DB에 추가하는 것을 막기위한 자기의 node ID
 	runner sync.Once     // Ensures we can start at most one expirer
 	// 하나가 끝났을때만 실행가능한것을 보장함
 	quit   chan struct{} // Channel to signal the expiring thread to stop
@@ -80,7 +80,7 @@ var (
 // known peers in the network. If no path is given, an in-memory, temporary
 // database is constructed.
 // newNodeDB 함수는 네트워크 상에 알려진 노드에 대한 정보를 저장하고 반환하기 위한
-// 새로운 node db를 생성한다. 만약 경루가 주어지지 않으면 메모리상에 임시 DB가 생성된다
+// 새로운 node db를 생성한다. 만약 경로가 주어지지 않으면 메모리상에 임시 DB가 생성된다
 func newNodeDB(path string, version int, self NodeID) (*nodeDB, error) {
 	if path == "" {
 		return newMemoryNodeDB(self)
@@ -105,8 +105,11 @@ func newMemoryNodeDB(self NodeID) (*nodeDB, error) {
 
 // newPersistentNodeDB creates/opens a leveldb backed persistent node database,
 // also flushing its contents in case of a version mismatch.
-// newPersistenNodeDB는항상성을 갖는 no DB로서  leveldb를 생성하거나 오픈한며
-// 버전이 맞지 않을 때 모두 플러시한다
+// newPersistenNodeDB는항상성을 갖는 node DB로서  leveldb를 생성하거나 오픈하며
+// 버전이 맞지 않을 때 모두 플러시 저장한다
+//Go 언어에서 flush 기능은 주로 버퍼를 비우는 작업을 의미합니다. 이는 데이터를 쓰는 동작이 발생할 때, 버퍼에 쌓인 데이터를 즉시 파일이나 네트워크에 쓰기 위해 버퍼를 비우는 작업을 수행하는 것입니다.
+//Go 언어에서 flush 기능을 수행하는 가장 일반적인 방법은 io.Writer 인터페이스를 구현한 객체의 Flush() 메서드를 호출하는 것입니다. 예를 들어, 파일을 쓰는 경우, 
+//파일에 데이터를 쓰기 위해 버퍼링된 데이터를 즉시 파일에 쓰기 위해 Flush() 메서드를 호출할 수 있습니다.
 func newPersistentNodeDB(path string, version int, self NodeID) (*nodeDB, error) {
 	opts := &opt.Options{OpenFilesCacheCapacity: 5}
 	db, err := leveldb.OpenFile(path, opts)
@@ -162,7 +165,7 @@ func makeKey(id NodeID, field string) []byte {
 }
 
 // splitKey tries to split a database key into a node id and a field part.
-// splitkey 함수는 db key를 node id와필드 파트를 구분하려 시도한다
+// splitkey 함수는 db key를 node id와 필드 파트를 구분하려 시도한다
 func splitKey(key []byte) (id NodeID, field string) {
 	// If the key is not of a node, return it plainly
 	// 키가 노드가 아닐경우 순수하게 리턴한다
@@ -262,7 +265,7 @@ func (db *nodeDB) ensureExpirer() {
 
 // expirer should be started in a go routine, and is responsible for looping ad
 // infinitum and dropping stale data from the database.
-// expirer는 고루틴에서 실행되어야 하며 무한정 루프와 db로 부터 오레된데이터를 드롭할 책임이 있따
+// expirer는 고루틴에서 실행되어야 하며 무한정 루프와 db로 부터 오레된 데이터를 드롭할 책임이 있다. 
 func (db *nodeDB) expirer() {
 	tick := time.NewTicker(nodeDBCleanupCycle)
 	defer tick.Stop()
@@ -280,7 +283,7 @@ func (db *nodeDB) expirer() {
 
 // expireNodes iterates over the database and deletes all nodes that have not
 // been seen (i.e. received a pong from) for some allotted time.
-// expirenodes는 dB를 반복하고 특정 슬랏 시간동안 더이상 보이지 않는 모든 노드를 삭제한다
+// expirenodes는 dB를 반복하고 특정 슬랏 시간동안 더 이상 보이지 않는 모든 노드를 삭제한다
 func (db *nodeDB) expireNodes() error {
 	threshold := time.Now().Add(-nodeDBNodeExpiration)
 
