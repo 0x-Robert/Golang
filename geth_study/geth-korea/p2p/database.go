@@ -82,9 +82,12 @@ var (
 // newNodeDB 함수는 네트워크 상에 알려진 노드에 대한 정보를 저장하고 반환하기 위한
 // 새로운 node db를 생성한다. 만약 경로가 주어지지 않으면 메모리상에 임시 DB가 생성된다
 func newNodeDB(path string, version int, self NodeID) (*nodeDB, error) {
+	
 	if path == "" {
 		return newMemoryNodeDB(self)
 	}
+	fmt.Println(path)
+	fmt.Println("newNodeDB")
 	return newPersistentNodeDB(path, version, self)
 }
 
@@ -93,14 +96,19 @@ func newNodeDB(path string, version int, self NodeID) (*nodeDB, error) {
 // newMemoryNodeDB 함수는 항상성을 갖는 백앤드 없이 메모리상에 노드 DB를 생성한다
 func newMemoryNodeDB(self NodeID) (*nodeDB, error) {
 	db, err := leveldb.Open(storage.NewMemStorage(), nil)
+	
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("db",db)
+	fmt.Println("nodeDB",&nodeDB)
+	
 	return &nodeDB{
 		lvl:  db,
 		self: self,
 		quit: make(chan struct{}),
 	}, nil
+	
 }
 
 // newPersistentNodeDB creates/opens a leveldb backed persistent node database,
