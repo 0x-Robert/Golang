@@ -72,6 +72,7 @@ func NewNode(id NodeID, ip net.IP, udpPort, tcpPort uint16) *Node {
 	if ipv4 := ip.To4(); ipv4 != nil {
 		ip = ipv4
 	}
+	fmt.Println("id, ip, udp,tcp", id, ip, udpPort, tcpPort)
 	return &Node{
 		IP:  ip,
 		UDP: udpPort,
@@ -82,12 +83,14 @@ func NewNode(id NodeID, ip net.IP, udpPort, tcpPort uint16) *Node {
 }
 
 func (n *Node) addr() *net.UDPAddr {
+	fmt.Println("&net.UDPAddr{IP: n.IP, Port: int(n.UDP)}", &net.UDPAddr{IP: n.IP, Port: int(n.UDP)})
 	return &net.UDPAddr{IP: n.IP, Port: int(n.UDP)}
 }
 
 // Incomplete returns true for nodes with no IP address.
 // Incomplete 함수는 IP주소가 없는 노드일때 참을 반환한다
 func (n *Node) Incomplete() bool {
+	fmt.Println("n Node", n.IP)
 	return n.IP == nil
 }
 
@@ -107,6 +110,7 @@ func (n *Node) validateComplete() error {
 		return errors.New("invalid IP (multicast/unspecified)")
 	}
 	_, err := n.ID.Pubkey() // validate the key (on curve, etc.)
+	fmt.Println("n.ID.Pubkey()")
 	// 키를 검증한다
 	return err
 }
@@ -127,6 +131,7 @@ func (n *Node) String() string {
 			u.RawQuery = "discport=" + strconv.Itoa(int(n.UDP))
 		}
 	}
+	fmt.Println("func (n *Node) String() string")
 	return u.String()
 }
 
@@ -170,6 +175,7 @@ var incompleteNodeURL = regexp.MustCompile("(?i)^(?:enode://)?([0-9a-f]+)$")
 //    enode://<hex node id>@10.3.58.6:30303?discport=30301
 
 func ParseNode(rawurl string) (*Node, error) {
+
 	if m := incompleteNodeURL.FindStringSubmatch(rawurl); m != nil {
 		id, err := HexID(m[1])
 		if err != nil {
@@ -177,6 +183,7 @@ func ParseNode(rawurl string) (*Node, error) {
 		}
 		return NewNode(id, nil, 0, 0), nil
 	}
+	fmt.Println("ParseNode")
 	return parseComplete(rawurl)
 }
 
@@ -228,6 +235,7 @@ func parseComplete(rawurl string) (*Node, error) {
 			return nil, errors.New("invalid discport in query")
 		}
 	}
+	fmt.Println("parseComplete")
 	return NewNode(id, ip, uint16(udpPort), uint16(tcpPort)), nil
 }
 
@@ -239,12 +247,14 @@ func MustParseNode(rawurl string) *Node {
 	if err != nil {
 		panic("invalid node URL: " + err.Error())
 	}
+	fmt.Println("n", n)
 	return n
 }
 
 // MarshalText implements encoding.TextMarshaler.
 // MarshalText는 encoding.TextMarshaler를 구현한다
 func (n *Node) MarshalText() ([]byte, error) {
+	fmt.Println("MarshalText")
 	return []byte(n.String()), nil
 }
 
@@ -252,6 +262,7 @@ func (n *Node) MarshalText() ([]byte, error) {
 // UnmarshalText는 encoding.TextUnmarshaler를 구현한다
 func (n *Node) UnmarshalText(text []byte) error {
 	dec, err := ParseNode(string(text))
+	fmt.Println("UnmarshalText")
 	if err == nil {
 		*n = *dec
 	}
@@ -267,37 +278,44 @@ type NodeID [NodeIDBits / 8]byte
 // Bytes returns a byte slice representation of the NodeID
 // Bytes 함수는 노드 ID의 바이트 표현을 반환한다
 func (n NodeID) Bytes() []byte {
+	fmt.Println("n Bytes")
 	return n[:]
 }
 
 // NodeID prints as a long hexadecimal number.
 // NodeID 함수는 긴 헥사 숫자를 프린트한다
 func (n NodeID) String() string {
+	fmt.Println("n String()")
 	return fmt.Sprintf("%x", n[:])
 }
 
 // The Go syntax representation of a NodeID is a call to HexID.
 // GoString 함수는 hexID를 호출하기 위한 node id의 고표현을 호출한다
 func (n NodeID) GoString() string {
+	fmt.Println("GoString()")
 	return fmt.Sprintf("discover.HexID(\"%x\")", n[:])
 }
 
 // TerminalString returns a shortened hex string for terminal logging.
 // TerminalString함수는 터미널 로깅을 위한 짧은 헥사 문자열을 반환한다
 func (n NodeID) TerminalString() string {
+	fmt.Println("TerminalString()")
 	return hex.EncodeToString(n[:8])
 }
 
 // MarshalText implements the encoding.TextMarshaler interface.
 // MarshalText함수는 encoding.TextMarshaler interface를 구현한다
 func (n NodeID) MarshalText() ([]byte, error) {
+	fmt.Println("MarshalText()")
 	return []byte(hex.EncodeToString(n[:])), nil
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
 // UnmarshalText는 encoding.TextUnmarshaler interface를 구현한다
 func (n *NodeID) UnmarshalText(text []byte) error {
+
 	id, err := HexID(string(text))
+	fmt.Println("UnmarshalText()")
 	if err != nil {
 		return err
 	}
@@ -308,6 +326,7 @@ func (n *NodeID) UnmarshalText(text []byte) error {
 // BytesID converts a byte slice to a NodeID
 // BytesID는 byte들을 nodeID로 변환한다
 func BytesID(b []byte) (NodeID, error) {
+	fmt.Println("BytesID")
 	var id NodeID
 	if len(b) != len(id) {
 		return id, fmt.Errorf("wrong length, want %d bytes", len(id))
@@ -321,6 +340,7 @@ func BytesID(b []byte) (NodeID, error) {
 // MustBytesID는 byte들을 nodeID로 변환한다
 // 바이트 슬라이스가 유효한 noid가 아닐경우 panic이 발생한다
 func MustBytesID(b []byte) NodeID {
+	fmt.Println("MustBytesID")
 	id, err := BytesID(b)
 	if err != nil {
 		panic(err)
@@ -340,6 +360,7 @@ func HexID(in string) (NodeID, error) {
 	} else if len(b) != len(id) {
 		return id, fmt.Errorf("wrong length, want %d hex chars", len(id)*2)
 	}
+	fmt.Println("HexID")
 	copy(id[:], b)
 	return id, nil
 }
@@ -349,6 +370,7 @@ func HexID(in string) (NodeID, error) {
 // MustHexID는 헥사 문자열을 노드ID로 변환한다
 // 문자열이 유효한 noid가 아닐경우 panic이 발생한다
 func MustHexID(in string) NodeID {
+	fmt.Println("MustHexID")
 	id, err := HexID(in)
 	if err != nil {
 		panic(err)
@@ -364,6 +386,7 @@ func PubkeyID(pub *ecdsa.PublicKey) NodeID {
 	if len(pbytes)-1 != len(id) {
 		panic(fmt.Errorf("need %d bit pubkey, got %d bits", (len(id)+1)*8, len(pbytes)))
 	}
+	fmt.Println("PubkeyID")
 	copy(id[:], pbytes[1:])
 	return id
 }
@@ -380,6 +403,7 @@ func (id NodeID) Pubkey() (*ecdsa.PublicKey, error) {
 	if !p.Curve.IsOnCurve(p.X, p.Y) {
 		return nil, errors.New("id is invalid secp256k1 curve point")
 	}
+	fmt.Println("func (id NodeID) Pubkey() (*ecdsa.PublicKey, error) ")
 	return p, nil
 }
 
@@ -398,6 +422,7 @@ func recoverNodeID(hash, sig []byte) (id NodeID, err error) {
 	for i := range id {
 		id[i] = pubkey[i+1]
 	}
+	fmt.Println("recoverNodeID(hash, sig []byte) (id NodeID, err error) ")
 	return id, nil
 }
 
@@ -417,6 +442,7 @@ func distcmp(target, a, b common.Hash) int {
 			return -1
 		}
 	}
+	fmt.Println("func distcmp(target, a, b common.Hash) int")
 	return 0
 }
 
@@ -469,12 +495,14 @@ func logdist(a, b common.Hash) int {
 			break
 		}
 	}
+	fmt.Println("func logdist(a, b common.Hash) int ")
 	return len(a)*8 - lz
 }
 
 // hashAtDistance returns a random hash such that logdist(a, b) == n
 // hashAtDistance 함수는 log거리가 n인 random 해시를 반환한다
 func hashAtDistance(a common.Hash, n int) (b common.Hash) {
+
 	if n == 0 {
 		return a
 	}
@@ -491,5 +519,6 @@ func hashAtDistance(a common.Hash, n int) (b common.Hash) {
 	for i := pos + 1; i < len(a); i++ {
 		b[i] = byte(rand.Intn(255))
 	}
+	fmt.Println(" hashAtDistance(a common.Hash, n int) (b common.Hash)  ")
 	return b
 }
