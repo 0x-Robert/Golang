@@ -12,6 +12,6 @@
 ### geth_study              - Geth 스터디 
 ### blockchain              - 블록체인 
 ### algorithm               - 해외 알고리즘 자료 
-### grammer                 - 문법
+### basic                   - 자료구조 & 문법 
 ### reverse_engineering     - 리버스엔지니어링
 
