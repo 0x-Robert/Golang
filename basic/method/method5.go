@@ -16,7 +16,9 @@ func (p *ParkingLot) ParkCar(carSize int) {
 	p.LotSize -= carSize
 }
 
+
 func main() {
+	//메모리 주소값을 선언하면서 구조체에 100을 할당해서 lot 변수에 담는다. 
 	lot := &ParkingLot{100}
 	ParkCar(lot, 10)
 	fmt.Println("lot", lot)
