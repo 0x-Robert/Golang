@@ -17,6 +17,10 @@ func sub(a, b int) int {
 	}
 }
 
+type opFunc func(int, int) int
+
+func getOperator2() opFunc
+
 func getOperator(op string) func(int, int) int { //op에 따른 함수 타입 반환
 	if op == "+" {
 		return add

@@ -10,7 +10,7 @@ func SendBook(name string, sender *fedex.FedexSender) {
 }
 
 func main() {
-	sender := &koreaPost.PostSender{}
-	SendBook("어린 왕자", sender)
-	SendBook("그리스인 조르바", sender)
+	sender := &koreaPost.PostSender{} //*koreaPost.PostSender 타입 
+	SendBook("어린 왕자", sender) 	   //타입이 맞지 않습니다. 
+	SendBook("그리스인 조르바", sender) 
 }
