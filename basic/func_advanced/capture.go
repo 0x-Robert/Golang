@@ -9,6 +9,9 @@ func CaptureLoop() {
 	f := make([]func(), 3) //함수 리터럴 3개를 가진 슬라이스
 	fmt.Println("ValueLoop")
 	for i := 0; i < 3; i++ {
+		//i변수가 참조로 캡쳐되서 그렇다. 
+		//for문이 진행할 때마다 i값이 증가하고 최종적으로 i=3에서 종료하기 때문에 
+		//함수 리터럴이 호출되는 시점의 캡쳐된 i 값은 3이된다.
 		f[i] = func() {
 			fmt.Println(i) //캡쳐된 i값 출력, i가 3일 때 캡처
 		}

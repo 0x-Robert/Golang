@@ -25,3 +25,5 @@ func main() {
 	result := fn(3, 4) // 함수 타입 변수를 사용해서 함수 호출
 	fmt.Println(result)
 }
+
+

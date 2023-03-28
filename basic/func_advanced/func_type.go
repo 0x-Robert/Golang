@@ -17,6 +17,7 @@ func sub(a, b int) int {
 	}
 }
 
+//다음과 같이 함수도 별칭 타입으로 만들 수 있다.
 type opFunc func(int, int) int
 
 func getOperator2() opFunc
