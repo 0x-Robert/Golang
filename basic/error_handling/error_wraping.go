@@ -9,21 +9,25 @@ import (
 )
 
 func MultipleFromString(str string) (int, error) {
-	scanner := bufio.NewScanner(strings.NewReader(str)) //스캐너 생성
-	scanner.Split(bufio.ScanWords)                      //한 단어씩 끊어 읽기
-
+	scanner := bufio.NewScanner(strings.NewReader(str)) //스캐너 생성, 문자열을 한 줄씩 또는 한 단어씩 끊어 읽고자할 때 주로 사용되는 구문
+	fmt.Println("scanner", scanner)
+	scanner.Split(bufio.ScanWords) //한 단어씩 끊어 읽기, bufio.ScanLines
+	fmt.Println("scanner2", scanner)
 	pos := 0
 	a, n, err := readNextInt(scanner)
+	fmt.Println("a,n,err", a, n, err)
 	if err != nil {
 		return 0, fmt.Errorf("Failed to readNextInt(), pos:%d err:%w", pos, err)
 		//에러 감싸기
 	}
 	pos += n + 1
+	fmt.Println("pos", pos)
 	b, n, err := readNextInt(scanner)
+	fmt.Println("b,n,err", b, n, err)
 	if err != nil {
 		return 0, fmt.Errorf("Failed to readNextInt(), pos:%d err:%w", pos, err)
-
 	}
+	fmt.Println("a * b", a*b)
 	return a * b, nil
 
 }
@@ -35,20 +39,23 @@ func readNextInt(scanner *bufio.Scanner) (int, int, error) {
 		return 0, 0, fmt.Errorf("Failed to scan")
 	}
 	word := scanner.Text()
+	fmt.Println("word", word)
 	number, err := strconv.Atoi(word) //문자열을 숫자로 변환
+	fmt.Println("number", number)
 	if err != nil {
 		return 0, 0, fmt.Errorf("Failed to convert word to int, word:%s err:%w", word, err)
 		//에러 감싸기
 	}
+	fmt.Println("number len(word)", number, len(word))
 	return number, len(word), nil
 }
 
 func readEq(eq string) {
 	rst, err := MultipleFromString(eq)
 	if err == nil {
-		fmt.Println(rst)
+		fmt.Println("rst", rst)
 	} else {
-		fmt.Println(err)
+		fmt.Println("err", err)
 		var numError *strconv.NumError
 		if errors.As(err, &numError) { //감싸진 에러가 NumError인지 확인
 			fmt.Println("NumberERror: ", numError)
