@@ -28,7 +28,7 @@ func main() {
 
 	word := os.Args[1] //찾으려는 단어
 	files := os.Args[2:]
-	findInfos := []FindInfo{}
+	//findInfos := []FindInfo{}
 	for _, path := range files {
 		//파일 찾기
 		findInfos = append(findInfos, FindWordInAllFiles(word, path)...)
@@ -45,12 +45,27 @@ func main() {
 
 }
 
-func GetFileList(path string) ([]string, error) {
-	return filepath.Glob(path)
+func GetFileList(pattern string) ([]string, error) {
+
+	filelist := []string{}
+	err = filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+		if !info.IsDir() {
+			matched, _ := filepath.Match(pattern, info.Name())
+			if matched {
+				filelist = append(filelist, path)
+			}
+		}
+		return nil
+	})
+
+	if err != nil {
+		return []string{}, err
+	}
+	return filelist, nil, err
 }
 
 func FindWordInAllFiles(word, path string) []FindInfo {
-	findInfos := []FindInfo{}
+	//findInfos := []FindInfo{}
 
 	//filelist, err := GetFileList(path) //파일 리스트 가져오기
 	filelist, err := filepath.Glob(path) //실행 인수 가져오기
