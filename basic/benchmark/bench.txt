@@ -1,0 +1,7 @@
+goos: linux
+goarch: amd64
+cpu: Intel(R) Core(TM) i7-5500U CPU @ 2.40GHz
+BenchmarkFibonacci1-4   	   16921	     61280 ns/op
+BenchmarkFibonacci2-4   	58356428	        25.69 ns/op
+PASS
+ok  	_/home/robertseo/work/golang/basic/benchmark	3.312s
