@@ -1,29 +1,14 @@
-package bankaccount 
+package main
 
+import (
+	"fmt"
 
-type Account interface {
-	Withdraw(money int) int 
-	Deposit(money int)
-	Balance() int 
-}
+	"github.com/tuckersGo/musthaveGo/appB/exB1/bankaccount"
+	"github.com/tuckersGo/musthaveGo/exB1/bankaccount"
+)
 
-func NewAccount() Account {
-	return &innerAccount{balance: 1000}
-}
-
-func innerAccount struct {
-	balance int 
-}
-
-func (a *innerAccount) Withdraw(mone int) int {
-	a.balance -= money
-	return a.balance 
-}
-
-func (a *innerAccount) Deposit(money int ){
-	a.balance += money  
-}
-
-func (a *interAccount) Balance() int {
-	return a.balance
+func main() {
+	account := bankaccount.NewAccount()
+	account.Deposit(1000)
+	fmt.Println(account.Balance())
 }
