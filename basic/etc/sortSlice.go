@@ -18,3 +18,12 @@ func main() {
 }
 
 //천천히 가는 것을 두려워 말고 가다가 멈추는 것을 두려워하라
+
+/*
+The Ultimate Go study Guide
+
+go ㅇ너어 오픈소스 패키지
+go언어 내부 코드를 살펴보기, fmt, strings, bufio등의 코드를 직접보기
+github에 있는 Go언어 오픈소스 프로젝트
+
+*/

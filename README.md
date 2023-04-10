@@ -16,3 +16,12 @@
 ### reverse_engineering     - 리버스엔지니어링
 
 
+## 천천히 가는 것을 두려워 말고 가다가 멈추는 것을 두려워하라
+
+* Go언어 공부시 도움되는 자료들 
+* The Ultimate Go study Guide
+* Go 언어 오픈소스 패키지
+* Go 언어 내부 코드를 살펴보기, fmt, strings, bufio등의 코드를 직접보기
+* Github에 있는 Go 언어 오픈소스 프로젝트
+
+*/
