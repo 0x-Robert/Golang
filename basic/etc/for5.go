@@ -28,4 +28,11 @@ func main() {
 		fmt.Println(k, v)
 	}
 	fmt.Println("m", m)
+
+	fmt.Println("채널 타입")
+	//채널타입
+	var ch := make(chan int)
+	for v:= range ch {
+		//계속 채널에 값이 들어올때까지 들어온 값을 반환합니다. 
+	}
 }
