@@ -21,7 +21,7 @@ func main() {
 		"name":        "cloud",
 	}
 
-	var elements []string
+	D
 	fmt.Println("elements", elements)
 	fmt.Println(reflect.TypeOf(elements))
 	fmt.Println("data", data)
