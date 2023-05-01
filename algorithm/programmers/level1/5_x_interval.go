@@ -1,0 +1,20 @@
+package main
+
+import "fmt"
+
+func solution(x int, n int) []int64 {
+
+	arr := make([]int64, 0)
+	for i := 1; i <= n; i++ {
+		arr = append(arr, int64(x*i))
+	}
+	fmt.Println("arr", arr)
+	return arr
+
+}
+
+func main() {
+	x := 2
+	n := 5
+	solution(x, n)
+}
