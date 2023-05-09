@@ -33,6 +33,36 @@ func solution(s string, n int) string {
 	return result.String()
 }
 
+
+
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+func solution2(s string, n int) string {
+    result := make([]rune, len(s))
+    offset := rune(n)
+    for i, v := range s {
+        if 'A' <= v && v <= 'Z' {
+            result[i] = ((v + offset - 'A') % 26) + 'A'
+        } else if 'a' <= v && v <= 'z' {
+            result[i] = ((v + offset - 'a') % 26) + 'a'
+        } else {
+            result[i] = v
+        }
+    }
+    return string(result)
+}
 func main() {
 	// s := "AB"
 	// n := 1
