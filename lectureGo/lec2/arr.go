@@ -5,6 +5,9 @@ import "fmt"
 func main() {
 	var strArray [5]string
 	strArray[0] = "a"
+	strArray[1] = "b"
+	strArray[2] = "c"
+	strArray[3] = "d"
 	strArray[4] = "e"
 
 	fmt.Println(strArray)

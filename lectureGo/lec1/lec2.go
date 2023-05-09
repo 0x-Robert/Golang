@@ -13,7 +13,8 @@ func multiCalc(a, b int) (x, y int) {
 
 func main() {
 	i, j := multiCalc(10, 20)
-	fmt.Printf("Sum :%d, Mul : %d", i, j)
+	fmt.Printf("Sum :%d\n, Mul : %d", i, j)
+	//fmt.Println(i, j)
 }
 
 //문제2 3개 이상(합산, 곱, 나누기 등) 인수를 리턴하는 함수를 자율적으로 작성
