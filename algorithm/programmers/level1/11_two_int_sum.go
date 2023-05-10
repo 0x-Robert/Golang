@@ -16,7 +16,7 @@ package main
 // 	return int64(sum)
 // }
 
-func solution(a int, b int) int64 {
+func solution11(a int, b int) int64 {
 	sum := 0
 
 	if a > b {
