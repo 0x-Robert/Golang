@@ -1,0 +1,24 @@
+package level1
+
+import "strings"
+
+// func solution15(phone_number string) string {
+
+// 	var result string
+// 	starNum := len(phone_number[:len(phone_number)-4])
+// 	for i := 0; i < starNum; i++ {
+
+// 		result += "*"
+// 	}
+// 	result += phone_number[len(phone_number)-4:]
+// 	return result
+// }
+
+func solution15(phone_number string) string {
+	return strings.Repeat("*", len(phone_number)-4) + phone_number[len(phone_number)-4:]
+}
+
+func hide() {
+	phone_number := "01033334444"
+	solution15(phone_number)
+}
