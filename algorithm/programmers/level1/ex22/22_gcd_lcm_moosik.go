@@ -1,4 +1,4 @@
-package level1
+package main
 
 func maxNumber(array []int) int {
 	max := array[0]

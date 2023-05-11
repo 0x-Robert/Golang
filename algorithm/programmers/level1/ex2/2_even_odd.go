@@ -1,4 +1,4 @@
-package level1
+package main
 
 func solution2(num int) (answer string) {
 
@@ -11,7 +11,7 @@ func solution2(num int) (answer string) {
 	}
 }
 
-func evenOdd() {
+func main() {
 	num1 := 4
 	//num2:=5
 	solution2(num1)

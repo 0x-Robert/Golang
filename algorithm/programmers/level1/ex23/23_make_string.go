@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"fmt"
@@ -25,7 +25,7 @@ func solution23(s string) string {
 	return string(slice)
 }
 
-func makeStr() {
+func main() {
 	s := " try   hello   world "
 	solution23(s)
 }

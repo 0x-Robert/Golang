@@ -1,4 +1,4 @@
-package level1
+package main
 
 import "fmt"
 
@@ -13,7 +13,7 @@ func solution5(x int, n int) []int64 {
 
 }
 
-func interval() {
+func main() {
 	x := 2
 	n := 5
 	solution5(x, n)

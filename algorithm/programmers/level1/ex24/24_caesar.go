@@ -1,4 +1,4 @@
-package level1
+package main
 
 // func solution(s string, n int) string {
 
@@ -40,7 +40,7 @@ func solution24(s string, n int) string {
 	}
 	return string(result)
 }
-func caeSar() {
+func main() {
 	// s := "AB"
 	// n := 1
 	s := "z"

@@ -1,4 +1,4 @@
-package level1
+package main
 
 // func solution(n int) string {
 
@@ -24,7 +24,7 @@ func solution17(n int) (ret string) {
 	return
 }
 
-func sooBak() {
+func main() {
 	n := 3
 	solution17(n)
 }

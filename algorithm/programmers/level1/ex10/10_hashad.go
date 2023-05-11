@@ -1,4 +1,4 @@
-package level1
+package main
 
 func solution10(x int) bool {
 
@@ -13,7 +13,7 @@ func solution10(x int) bool {
 
 }
 
-func hashed() {
+func main() {
 	x := 13
 	solution10(x)
 }

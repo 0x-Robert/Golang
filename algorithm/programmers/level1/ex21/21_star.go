@@ -1,8 +1,8 @@
-package level1
+package main
 
 import "fmt"
 
-func Star() {
+func main() {
 	var a, b int
 	fmt.Scan(&a, &b)
 	for i := 0; i < b; i++ {

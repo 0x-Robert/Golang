@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ func solution8(s string) int {
 	return answer
 }
 
-func strConvert() {
+func main() {
 	//str := "1234"
 	str := "-1234"
 	solution8(str)

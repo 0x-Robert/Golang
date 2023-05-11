@@ -1,4 +1,4 @@
-package level1
+package main
 
 // func solution(t string, p string) int {
 // 	var count int
@@ -27,7 +27,7 @@ func solution26(t string, p string) int {
 	return result
 }
 
-func partStr() {
+func main() {
 	t := "3141592"
 	p := "271"
 	solution26(t, p)

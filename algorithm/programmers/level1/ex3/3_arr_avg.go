@@ -1,4 +1,4 @@
-package level1
+package main
 
 import "fmt"
 
@@ -15,7 +15,7 @@ func solution3(arr []int) (answer float64) {
 	return
 }
 
-func arrAvg() {
+func main() {
 	test := [4]int{1, 2, 3, 4}
 	//배열 > 슬라이스 test[:]
 	solution3(test[:])

@@ -1,4 +1,4 @@
-package level1
+package main
 
 func solution11(a int, b int) int64 {
 	sum := 0
@@ -14,7 +14,7 @@ func solution11(a int, b int) int64 {
 	return int64(sum)
 }
 
-func twoIntSum() {
+func main() {
 	a := 3
 	b := 3
 	solution11(a, b)

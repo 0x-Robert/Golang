@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"fmt"
@@ -16,7 +16,7 @@ func solution6(n int64) int64 {
 	return -1
 }
 
-func intSqrt() {
+func main() {
 
 	n := int64(3)
 	// n:= int64(121)

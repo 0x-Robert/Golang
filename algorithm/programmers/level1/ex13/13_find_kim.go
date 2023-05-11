@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"strconv"
@@ -17,7 +17,7 @@ func solution13(seoul []string) string {
 	return answer
 }
 
-func findKim() {
+func main() {
 	arr := []string{"Jane", "Kim"}
 	solution13(arr)
 }

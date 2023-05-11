@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"strconv"
@@ -38,7 +38,7 @@ func solution4(n int) (answer int) {
 // 	return answer
 // }
 
-func sumSolution() {
+func main() {
 	N := 123
 	solution4(N)
 }

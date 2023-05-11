@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ func solution14(arr []int, divisor int) []int {
 	return answer
 }
 
-func dividor() {
+func main() {
 
 	arr := []int{5, 9, 7, 10}
 	divisor := 5

@@ -1,4 +1,4 @@
-package level1
+package main
 
 func remove(slice []int, s int) []int {
 	return append(slice[:s], slice[s+1:]...)
@@ -44,7 +44,7 @@ func solution16(arr []int) []int {
 
 	return arr
 }
-func rmMin() {
+func main() {
 	//arr := []int{1, 2, 3, 4}
 	arr := []int{4, 3, 2, 1}
 	//arr := []int{10}

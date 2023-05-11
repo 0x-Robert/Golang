@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"fmt"
@@ -43,7 +43,7 @@ func solution18(s string) string {
 	return string(a)
 }
 
-func sortStr() {
+func main() {
 
 	a := "Zbcdefg"
 	solution18(a)

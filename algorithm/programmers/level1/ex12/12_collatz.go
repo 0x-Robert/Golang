@@ -1,4 +1,4 @@
-package level1
+package main
 
 // func solution(num int) int {
 
@@ -47,7 +47,7 @@ func solution12(num int) int {
 	return count
 }
 
-func collatz() {
+func main() {
 	//n := 6
 	//n := 16
 	n := 626331

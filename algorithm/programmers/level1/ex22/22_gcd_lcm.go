@@ -1,4 +1,4 @@
-package level1
+package main
 
 import "fmt"
 
@@ -28,7 +28,7 @@ func gcd(a, b int) int {
 	return a
 }
 
-func gcdLcm() {
+func main() {
 	n := 2
 	m := 5
 	solution222(n, m)

@@ -1,4 +1,4 @@
-package level1
+package main
 
 import "strings"
 
@@ -18,7 +18,7 @@ func solution15(phone_number string) string {
 	return strings.Repeat("*", len(phone_number)-4) + phone_number[len(phone_number)-4:]
 }
 
-func hide() {
+func main() {
 	phone_number := "01033334444"
 	solution15(phone_number)
 }

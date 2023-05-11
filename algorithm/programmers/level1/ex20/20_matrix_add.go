@@ -1,4 +1,4 @@
-package level1
+package main
 
 // func solution(arr1 [][]int, arr2 [][]int) [][]int {
 // 	rows := len(arr1)    //배열 길이로 행 설정
@@ -29,7 +29,7 @@ func solution20(arr1 [][]int, arr2 [][]int) [][]int {
 	return arr1
 }
 
-func matrixAdd() {
+func main() {
 	arr1 := [][]int{{1, 2}, {2, 3}}
 	arr2 := [][]int{{3, 4}, {5, 6}}
 	solution20(arr1, arr2)

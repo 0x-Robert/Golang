@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"fmt"
@@ -43,7 +43,7 @@ func solution7(n int64) []int {
 	return answer
 }
 
-func reverseArr() {
+func main() {
 	num := int64(12345)
 	solution7(num)
 }

@@ -1,4 +1,4 @@
-package level1
+package main
 
 /*
 입출력 예
@@ -22,7 +22,7 @@ func solution25(number []int) int {
 	return answer
 }
 
-func Three() {
+func main() {
 	number := []int{-2, 3, 0, 2, -5}
 	solution25(number)
 }

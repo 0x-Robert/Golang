@@ -1,4 +1,4 @@
-package level1
+package main
 
 import (
 	"fmt"
@@ -62,7 +62,7 @@ func solution9(n int64) int64 {
 
 	return ret
 }
-func intDescending() {
+func main() {
 	n := 118372
 	solution9(int64(n))
 }

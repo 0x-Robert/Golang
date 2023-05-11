@@ -1,4 +1,4 @@
-package level1
+package main
 
 import "strings"
 
@@ -27,7 +27,7 @@ func solution19(s string) bool {
 	return (len(s) == 4 || len(s) == 6) && strings.ToUpper(s) == s && strings.ToLower(s) == s
 }
 
-func manageStr() {
+func main() {
 	//s := "23d2ef"
 	s := "123453"
 	solution19(s)
