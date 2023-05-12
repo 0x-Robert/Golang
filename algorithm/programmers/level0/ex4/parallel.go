@@ -1,10 +1,5 @@
 package main
 
-import (
-	"reflect"
-	"sort"
-)
-
 // func solution(dots [][]int) int {
 
 // 	sort.Slice(dots, func(i, j int) bool {
@@ -25,32 +20,44 @@ import (
 // 	}
 // }
 
-func solution(dots [][]int) int {
-	// 첫번째 점과 두번째 점을 잇는 선분과
-	// 세번째 점과 네번째 점을 잇는 선분의 기울기가 같으면
-	// 두 선분은 평행이다.
+// func solution1(dots [][]int) int {
+// 	// 첫번째 점과 두번째 점을 잇는 선분과
+// 	// 세번째 점과 네번째 점을 잇는 선분의 기울기가 같으면
+// 	// 두 선분은 평행이다.
 
-	x1, y1 := dots[0][0], dots[0][1]
-	x2, y2 := dots[1][0], dots[1][1]
-	x3, y3 := dots[2][0], dots[2][1]
-	x4, y4 := dots[3][0], dots[3][1]
+// 	x1, y1 := dots[0][0], dots[0][1]
+// 	x2, y2 := dots[1][0], dots[1][1]
+// 	x3, y3 := dots[2][0], dots[2][1]
+// 	x4, y4 := dots[3][0], dots[3][1]
 
-	sort.Slice(dots, func(i, j int) bool {
-		return dots[i][0] < dots[j][0]
-	})
-	if reflect.DeepEqual(dots[0], dots[1]) || reflect.DeepEqual(dots[2], dots[3]) {
-		return 1
-	} else {
-		if (y2-y1)*(x4-x3) == (y4-y3)*(x2-x1) {
-			return 1
-		}
-		return 0
-	}
+// 	sort.Slice(dots, func(i, j int) bool {
+// 		return dots[i][0] < dots[j][0]
+// 	})
+// 	if reflect.DeepEqual(dots[0], dots[1]) || reflect.DeepEqual(dots[2], dots[3]) {
+// 		return 1
+// 	} else {
+// 		if (y2-y1)*(x4-x3) == (y4-y3)*(x2-x1) {
+// 			return 1
+// 		}
+// 		return 0
+// 	}
 
-}
+// }
 
 func solution0(dots [][]int) int {
 
+	slope := func(dot1, dot2 []int) float64 {
+		return float64(dot1[1]-dot2[1]) / float64(dot1[0]-dot2[0])
+	}
+
+	if slope(dots[0], dots[1]) == slope(dots[2], dots[3]) || slope(dots[0], dots[2]) == slope(dots[1], dots[3]) || slope(dots[0], dots[3]) == slope(dots[1], dots[2]) {
+		return 1
+	}
+
+	return 0
+}
+
+func solution(dots [][]int) int {
 
 	x1, y1 := dots[0][0], dots[0][1]
 	x2, y2 := dots[1][0], dots[1][1]
@@ -60,7 +67,7 @@ func solution0(dots [][]int) int {
 	if (x1-x2)*(y3-y4) == (y1-y2)*(x3-x4) { //1234
 		return 1
 	}
-	if (x1-x3)*(y2-y4) == (y1-y3)*(x2-x4) { //1324 
+	if (x1-x3)*(y2-y4) == (y1-y3)*(x2-x4) { //1324
 		return 1
 	}
 	if (x1-x4)*(y2-y3) == (y1-y4)*(x2-x3) { //1423
