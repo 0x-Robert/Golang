@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func solution(array []int) int {
 
@@ -32,6 +35,27 @@ func solution(array []int) int {
 	}
 	//fmt.Println("maxNum", maxNum)
 	return maxNum
+}
+
+func solution2(array []int) int {
+	count := make(map[int]int)
+	for index := range array {
+		count[array[index]]++
+	}
+
+	keys := make([]int, 0, len(count))
+	for key := range count {
+		keys = append(keys, key)
+	}
+
+	sort.Slice(keys, func(i, j int) bool {
+		return count[keys[i]] > count[keys[j]]
+	})
+
+	if len(keys) > 1 && count[keys[0]] == count[keys[1]] {
+		return -1
+	}
+	return keys[0]
 }
 
 func main() {
