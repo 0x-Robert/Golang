@@ -33,6 +33,12 @@ func gcd(a, b int64) int64 {
 	return a
 }
 
+// func solution(dnum1 int, num1 int, dnum2 int, num2 int) []int {
+//     dnum3, num3 := dnum1 * num2 + dnum2 * num1, num1 * num2
+//     vGcd := gcd(dnum3, num3)
+//     return []int{dnum3/vGcd, num3/vGcd}
+// }
+
 func main() {
 	result := solution(1, 2, 3, 4)
 	fmt.Println(result)
