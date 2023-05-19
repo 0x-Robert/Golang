@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // func solution(str_list []string) []string {
 // 	arr := []string{}
 // 	if len(str_list) == 0 {
@@ -25,6 +23,17 @@ import "fmt"
 // 	}
 // 	return arr
 // }
+
+func solution1(str_list []string) []string {
+	for idx, item := range str_list {
+		if item == "l" {
+			return str_list[:idx]
+		} else if item == "r" {
+			return str_list[idx+1:]
+		}
+	}
+	return []string{}
+}
 
 func solution(str_list []string) []string {
 	temp := make([]string, len(str_list))
