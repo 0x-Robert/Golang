@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 )
 
@@ -21,8 +22,9 @@ func solution(array []int, commands [][]int) []int {
 			answer = append(answer, array[v[0]-1])
 		}
 	}
-
+	fmt.Println("test")
 	return answer
+	
 }
 
 func solution0(array []int, commands [][]int) []int {
