@@ -1,5 +1,9 @@
-import "strings"
-import "strconv"
+package main
+
+import (
+	"strconv"
+	"strings"
+)
 
 type Poly struct {
 	X, C int
@@ -57,4 +61,3 @@ func solution(my_string string) string {
 
 	return poly.ToString()
 }
-

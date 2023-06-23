@@ -1,7 +1,9 @@
+package main
+
 import (
-	"strings"
-	"strconv"
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 func solution(polynomial string) string {

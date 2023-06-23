@@ -13,7 +13,7 @@ func solution(code string) string {
 	ret := ""
 
 	for idx, _ := range code {
-		//fmt.Println("v", string(v))
+		//fmt.Println("v", stringWW(v))
 
 		if mode == 0 {
 			//fmt.Println(string(code[idx]))
