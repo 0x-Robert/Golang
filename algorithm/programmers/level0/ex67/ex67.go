@@ -16,7 +16,7 @@
 // 입출력 예 #1
 
 // "nice to meet you"에서 모음 i, o, e, u를 모두 제거한 "nc t mt y"를 return합니다.
-
+// return
 package main
 
 import (
