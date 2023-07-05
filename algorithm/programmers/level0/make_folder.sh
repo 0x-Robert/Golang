@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for var in {2..27}
+for var in {76..100}
 do 
 	mkdir ex$var 
 done
