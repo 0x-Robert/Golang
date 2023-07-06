@@ -6,6 +6,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/tuckersGo/musthaveGo/ch20/fedex v0.0.0-20230126175348-6f7945b85bda
 	github.com/tuckersGo/musthaveGo/ch20/koreaPost v0.0.0-20230126175348-6f7945b85bda
+	golang.org/x/exp v0.0.0-20230626212559-97b1e661b5df
 )
 
 require (
