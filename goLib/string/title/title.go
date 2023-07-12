@@ -1,22 +1,16 @@
-// https://pkg.go.dev/strings#Title
-// func
-// Title
-// DEPRECATED
-// func Title(s string) string
-// Title returns a copy of the string s with all Unicode letters that begin words mapped to their Unicode title case.
-
-// Deprecated: The rule Title uses for word boundaries does not handle Unicode punctuation properly. Use golang.org/x/text/cases instead.
-
 package main
 
 import (
 	"fmt"
-	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 func main() {
-	// Compare this example to the ToTitle example.
-	fmt.Println(strings.Title("her royal highness"))
-	fmt.Println(strings.Title("loud noises"))
-	fmt.Println(strings.Title("хлеб"))
+	str := "peter parker. james bond"
+	caser := cases.Title(language.English)
+	fmt.Println("str = ", str)
+	str_title := caser.String(str)
+	fmt.Println("str_title_cased = ", str_title)
 }

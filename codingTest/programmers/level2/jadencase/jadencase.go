@@ -41,41 +41,42 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
-// func solution(s string) string {
-// 	// upper가 true일 때 대문자, false일 때는 소문자화
-// 	// 문자 첫번째가 숫자일 경우, 나머지 문자는 공백이 나올 때까지 소문자로 변환
-// 	upcheck := 0
-// 	answer := ""
+func solution0(s string) string {
+	// upper가 true일 때 대문자, false일 때는 소문자화
+	// 문자 첫번째가 숫자일 경우, 나머지 문자는 공백이 나올 때까지 소문자로 변환
+	upcheck := 0
+	answer := ""
 
-// 	for i, v := range s {
-// 		if i == 0 && v != 32 {
-// 			//&& v >= 65 && v <= 90
-// 			answer = strings.ToUpper(string(v))
-// 			upcheck = 0
-// 		}
-// 		// fmt.Println("v, answer, upper", v, answer, upcheck)
-// 		// 앞이 숫자일 때
-// 		if v >= 48 && v <= 57 {
-// 			answer += string(v)
-// 			upcheck = 0
-// 		} else if upcheck == 0 && v != 32 && i != 0 {
-// 			answer += strings.ToLower(string(v))
-// 		} else if upcheck == 1 && v != 32 {
-// 			answer += strings.ToUpper(string(v))
-// 			upcheck = 0
-// 		} else if v == 32 {
-// 			answer += string(v)
-// 			upcheck = 1
-// 		}
-// 	}
-// 	fmt.Println("answer", answer)
-// 	return answer
-// }
+	for i, v := range s {
+		if i == 0 && v != 32 {
+			//&& v >= 65 && v <= 90
+			answer = strings.ToUpper(string(v))
+			upcheck = 0
+		}
+		// fmt.Println("v, answer, upper", v, answer, upcheck)
+		// 앞이 숫자일 때
+		if v >= 48 && v <= 57 {
+			answer += string(v)
+			upcheck = 0
+		} else if upcheck == 0 && v != 32 && i != 0 {
+			answer += strings.ToLower(string(v))
+		} else if upcheck == 1 && v != 32 {
+			answer += strings.ToUpper(string(v))
+			upcheck = 0
+		} else if v == 32 {
+			answer += string(v)
+			upcheck = 1
+		}
+	}
+	fmt.Println("answer", answer)
+	return answer
+}
 
-func solution(s string) string {
+func solution1(s string) string {
 	arr := []string{}
 	for _, v := range s {
 		arr = append(arr, string(v))
@@ -95,7 +96,7 @@ func solution(s string) string {
 	return answer
 }
 
-func solution1(s string) string {
+func solution2(s string) string {
 	return strings.Title(strings.ToLower(s))
 }
 
@@ -109,5 +110,5 @@ func main() {
 	// 3people   Unfollowed   Me
 	// 3PeoPle   unFoLLowed   mE
 
-	solution(s)
+	solution1(s)
 }
