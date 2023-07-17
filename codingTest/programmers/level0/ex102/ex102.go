@@ -99,6 +99,40 @@ package main
 // 	return 0
 // }
 
+// 챗GPT의 코드
+func solution(board [][]int) int {
+	n := len(board)
+	count := 0
+
+	// 상하좌우 및 대각선 방향
+	dx := []int{-1, -1, -1, 0, 0, 1, 1, 1}
+	dy := []int{-1, 0, 1, -1, 1, -1, 0, 1}
+
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if board[i][j] == 1 {
+				continue // 현재 칸이 지뢰인 경우 다음 칸으로 넘어감
+			}
+
+			// 주변 지뢰 개수 확인
+			mineCount := 0
+			for k := 0; k < 8; k++ {
+				nx := i + dx[k]
+				ny := j + dy[k]
+				if nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] == 1 {
+					mineCount++
+				}
+			}
+
+			if mineCount == 0 {
+				count++ // 안전한 지역인 경우 카운트 증가
+			}
+		}
+	}
+
+	return count
+}
+
 func main() {
 	// board := [][]int{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 1, 0, 0}, {0, 0, 0, 0, 0}}
 	// board := [][]int{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 1, 1, 0}, {0, 0, 0, 0, 0}}
