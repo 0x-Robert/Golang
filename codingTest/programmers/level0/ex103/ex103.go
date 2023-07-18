@@ -48,13 +48,14 @@ func solution(sides []int) int {
 	// 가장 긴 변의 길이는 나머지 두변의 길이의 합보다 작아야한다.
 	init := sides[1] - sides[0] + 1
 	// case a  : 가장 긴 값이 x일 때
+	// 배열의 원소의 합 > x > 배열의 최댓값
 
 	for i := sides[1] + 1; i < sum(sides[0], sides[1]); i++ {
 		count += 1
 	}
 
 	// case b  : 가장 긴 변이 배열의 최댓값일 때
-
+	// 배열의 최댓값 > x > 배열의 최댓값 - 배열의 최솟값
 	for j := init; j <= sides[1]; j++ {
 		count += 1
 	}
