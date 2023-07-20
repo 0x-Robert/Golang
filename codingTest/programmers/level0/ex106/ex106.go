@@ -36,34 +36,25 @@
 package main
 
 func solution(lines [][]int) int {
-	// fmt.Println(lines[0], lines[1], lines[2])
-	// fmt.Println(lines[0][0], lines[0][1], lines[1][0], lines[1][1], lines[2][0], lines[2][1])
+	mp := make(map[int]int)
 	count := 0
-	// 두 선분씩 경계가 겹치는 경우 1
-	if lines[1][0] > lines[0][0] && lines[1][0] < lines[0][1] {
-		count += lines[0][1] - lines[1][0]
+	for _, v := range lines {
+		for i := v[0]; i < v[1]; i++ {
+			mp[i] += 1
+		}
 	}
-	// 두 선분씩 경계가 겹치는 경우 2
-	if lines[2][0] > lines[1][0] && lines[2][0] < lines[1][1] {
-		count += lines[1][1] - lines[2][0]
+	for _, v := range mp {
+		if v >= 2 {
+			count += 1
+		}
 	}
-
-	// 두 선분 중 작은 선분이 큰 선분 안으로 들어와 있는 경우
-	if lines[1][0] > lines[2][0] && lines[1][1] < lines[2][1] {
-		count += lines[1][1] - lines[1][0]
-	}
-	if lines[0][0] > lines[1][0] && lines[0][1] < lines[1][1] {
-		count += lines[0][1] - lines[0][0]
-	}
-
 	// fmt.Println(count)
-
 	return count
 }
 
 func main() {
-	// lines := [][]int{{0, 1}, {2, 5}, {3, 9}}
+	lines := [][]int{{0, 1}, {2, 5}, {3, 9}}
 	// lines := [][]int{{-1, 1}, {1, 3}, {3, 9}}
-	lines := [][]int{{0, 5}, {3, 9}, {1, 10}}
+	// lines := [][]int{{0, 5}, {3, 9}, {1, 10}}
 	solution(lines)
 }
