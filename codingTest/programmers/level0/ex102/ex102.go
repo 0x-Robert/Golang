@@ -1,3 +1,4 @@
+// 안전지대 
 // 문제 설명
 // 다음 그림과 같이 지뢰가 있는 지역과 지뢰에 인접한 위, 아래, 좌, 우 대각선 칸을 모두 위험지역으로 분류합니다.
 // image.png
@@ -100,6 +101,8 @@ package main
 // }
 
 // 챗GPT의 코드
+
+
 func solution(board [][]int) int {
 	n := len(board)
 	count := 0

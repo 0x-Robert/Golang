@@ -48,7 +48,6 @@ func solution(lines [][]int) int {
 			count += 1
 		}
 	}
-	// fmt.Println(count)
 	return count
 }
 
