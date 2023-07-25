@@ -33,7 +33,9 @@ func solution(chicken int) int {
 
 	for coupons >= 10 {
 		serviceChickens += coupons / 10
+		fmt.Println("serviceChickens", serviceChickens)
 		coupons = (coupons / 10) + (coupons % 10)
+		fmt.Println("coupons", coupons)
 	}
 
 	fmt.Println(chicken, serviceChickens, coupons)
