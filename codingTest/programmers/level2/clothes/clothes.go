@@ -39,50 +39,95 @@
 // 1. crow_mask
 // 2. blue_sunglasses
 // 3. smoky_makeup
+
 package main
 
 import "fmt"
 
-func factorial(x int) int {
-	answer := 1
-	for i := 1; i <= x; i++ {
-		answer *= i
-	}
-	return answer
-}
+// func factorial(x int) int {
+// 	answer := 1
+// 	for i := 1; i <= x; i++ {
+// 		answer *= i
+// 	}
+// 	return answer
+// }
 
-func comb(n int, r int) int {
-	answer2 := 0
-	fmt.Println("3fac", factorial(n))
-	for i := 1; i <= r; i++ {
-		answer2 += (factorial(n)) / (i * factorial(n-i))
-	}
-	fmt.Println("comb answer2", answer2)
-	return answer2
-}
+// func comb(n int, r int) int {
+// 	answer2 := 0
+// 	// fmt.Println("3fac", factorial(n))
+// 	for i := 1; i <= r; i++ {
+// 		answer2 += (factorial(n)) / (i * factorial(n-i))
+// 	}
+// 	// fmt.Println("comb answer2", answer2)
+// 	return answer2
+// }
+
+// func solution(clothes [][]string) int {
+// 	mp := make(map[string]int)
+// 	n := len(clothes)
+// 	answer := 0
+
+// 	for _, v := range clothes {
+// 		mp[v[1]] += 1
+// 	}
+// 	r := len(mp)
+// 	answer = comb(n, r)
+// 	fmt.Println(mp, r)
+// 	for _, v2 := range mp {
+// 		// fmt.Println(v2)
+// 		if v2 >= 2 && r >= 2 {
+// 			answer -= 1
+// 		}
+// 	}
+
+// 	fmt.Println(answer)
+// 	return answer
+// }
+
+//	func main() {
+//		clothes := [][]string{{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}, {"pants", "jean"}}
+//		// clothes := [][]string{{"crow_mask", "face"}, {"blue_sunglasses", "face"}, {"smoky_makeup", "face"}}
+//		solution(clothes)
+//	}
+
+// func solution(clothes [][]string) int {
+// 	// Create a map to count the occurrences of each kind of clothing
+// 	cnt := make(map[string]int)
+// 	for _, cloth := range clothes {
+// 		cnt[cloth[1]]++
+// 	}
+// 	fmt.Println(cnt)
+// 	// Calculate the total number of combinations
+// 	answer := 1
+// 	for _, value := range cnt {
+// 		answer *= (value + 1)
+// 		fmt.Println(answer)
+// 	}
+
+// 	// Subtract 1 to exclude the case of not wearing any clothing
+// 	answer--
+
+// 	return answer
+// }
 
 func solution(clothes [][]string) int {
-	mp := make(map[string]int)
-	fmt.Println(len(clothes))
-	n := len(clothes)
-	r := 2
-	fmt.Println("comb", comb(n, r))
+	category := make(map[string]int)
+	result := 1
+
 	for _, v := range clothes {
-		fmt.Println(v[0], v[1])
-		// mp[v[1]] = v[0]
-		mp[v[1]] += 1
+		category[v[1]] = category[v[1]] + 1
 	}
-	for _, v2 := range mp {
-		fmt.Println("v2", v2)
-		if v2 >= 2 {
-			
-		}
+	fmt.Println(category)
+
+	for _, v := range category {
+		result *= (v + 1)
 	}
-	fmt.Println(mp)
-	return 0
+	fmt.Println("result", result)
+
+	return result - 1
 }
 
 func main() {
 	clothes := [][]string{{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}}
-	solution(clothes)
+	fmt.Println(solution(clothes)) // Output: 5
 }
