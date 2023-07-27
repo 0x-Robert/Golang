@@ -45,18 +45,22 @@ func solution(progresses []int, speeds []int) []int {
 		} else {
 			if count > 0 {
 				answer = append(answer, count)
+				fmt.Println(answer)
 				count = 0
 			}
 			time++
 		}
 	}
+	fmt.Println(answer)
 	answer = append(answer, count)
 	fmt.Println(answer)
 	return answer
 }
 
 func main() {
-	progresses := []int{90, 30, 55}
-	speeds := []int{1, 30, 5}
+	// progresses := []int{93, 30, 55}
+	// speeds := []int{1, 30, 5}
+	progresses := []int{95, 90, 99, 99, 80, 99}
+	speeds := []int{1, 1, 1, 1, 1, 1}
 	solution(progresses, speeds)
 }
