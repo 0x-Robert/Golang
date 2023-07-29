@@ -23,6 +23,8 @@
 
 package main
 
+import "fmt"
+
 func closedNumber(v rune, i int, s string) int {
 	count := 0
 	answer := 0
@@ -50,8 +52,28 @@ func solution(s string) []int {
 	return arr
 }
 
+func solution1(s string) []int {
+	m := make(map[string]int)
+	var res []int
+
+	for i := range s {
+		val, ok := m[string(s[i])]
+		fmt.Println("val", val, "ok", ok, "!ok", !ok, "i", i, m)
+		if !ok {
+			m[string(s[i])] = i
+
+			res = append(res, -1)
+		} else {
+			m[string(s[i])] = i
+			
+			res = append(res, i-val)
+		}
+	}
+	return res
+}
+
 func main() {
-	// s := "banana"
-	s := "foobar"
-	solution(s)
+	s := "banana"
+	// s := "foobar"
+	solution1(s)
 }
