@@ -34,15 +34,16 @@ func solution(k int, score []int) []int {
 	// 명예의전당 배열을 만든다.
 	// 정답 배열을 만든다.
 	// score를 순회를 돈다.
-	// score의 순회를 돈 요소를 명예의전당 배열에 넣고 [:k+1] 배열만큼 반환받는다.
-	// 이후 [:k-1] 배열을 내림차순 정렬한 뒤
-	// k-1번째 값을 answer 배열에 넣는다.
+	// 명예의전당 배열에 v 값을 넣는다.
+	// score의 순회를 돈 요소를 명예의전당 배열에 넣고 [:i+1] 배열만큼 반환받는다.
+	// 이후 k 미만일 때는 m[:i+1] 배열을 내림차순 후 반환받고 m[i] 원소를 answer 배열에 넣는다.
+	// k 이상일 때는 m[:i+1]  배열을 내림차순 정렬한 뒤  m[k-1]번째 값을 answer 배열에 넣는다.
 	// answer 배열을 반환한다.
 	m := []int{}
 	answer := []int{}
 	for i, v := range score {
 		m = append(m, v)
-		// i가 k 이하일 때
+		// i가 k 미만일 때
 		if i+1 < k {
 			m = m[:i+1]
 			sort.Sort(sort.Reverse(sort.IntSlice(m)))
