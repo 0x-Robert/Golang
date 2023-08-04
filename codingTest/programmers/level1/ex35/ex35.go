@@ -58,6 +58,16 @@ func solution(k int, m int, score []int) int {
 	return answer
 }
 
+func solution1(k int, m int, score []int) int {
+	answer := 0
+	// 내림차순으로 정렬
+	sort.Sort(sort.Reverse(sort.IntSlice(score)))
+	for i := m - 1; i < len(score); i += m {
+		answer += score[i] * m
+	}
+	return answer
+}
+
 func main() {
 	k := 4
 	m := 3
